@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { FaShoppingBasket, FaTrash } from 'react-icons/fa';
 import './Cart.css';
 
 function CartPage() {
   const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -20,11 +21,23 @@ function CartPage() {
   };
 
   const handleDelete = (index) => {
+    // Remove the item from the cart (just like deleting)
     const updatedCart = cartItems.filter((_, i) => i !== index);
     setCartItems(updatedCart);
+  
+    // Save the updated cart back to localStorage
     localStorage.setItem('cart', JSON.stringify(updatedCart));
+  
+    // Update the cart count in localStorage after deleting the item
+    const updatedCartCount = updatedCart.reduce(
+      (acc, item) => acc + item.quantity,
+      0
+    );
+    localStorage.setItem('cartCount', updatedCartCount);
+  
+    // Dispatch the event to notify that the cart has been updated
+    window.dispatchEvent(new Event('cartUpdated'));
   };
-
   const getTotalPrice = () => {
     return cartItems
       .reduce((total, item) => {
@@ -33,6 +46,12 @@ function CartPage() {
         return total + basePrice * weightMultiplier * item.quantity;
       }, 0)
       .toFixed(2);
+  };
+
+  
+  const handleClick = () => {
+    // you could add logic here first
+    navigate("/check-out");
   };
 
   // Calculate shipping fee
@@ -67,7 +86,7 @@ function CartPage() {
               <div className="cart-item-info">
                 <h4>{item.coffee.name}</h4>
                 <p>Weight: {item.selectedWeight}</p>
-                <label>
+             <p>
                   Quantity:
                   <select
                     value={item.quantity}
@@ -81,7 +100,7 @@ function CartPage() {
                       </option>
                     ))}
                   </select>
-                </label>
+                  </p>
                 <p>
                   Price: €
                   {(
@@ -127,7 +146,7 @@ function CartPage() {
             <Link to="/shop/all-coffees" className="btn-back">
               Continue Shopping
             </Link>
-            <button className="btn-purchase">Proceed to checkout</button>
+            <button onClick={handleClick} className="btn-purchase">Proceed to checkout</button>
           </div>
         </div>
       </div>

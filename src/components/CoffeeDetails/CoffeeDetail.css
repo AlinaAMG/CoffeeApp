@@ -7,7 +7,7 @@
 .coffee-single-wrapper {
     padding: 2rem;
     max-width: 1200px;
-    margin: 10px auto;
+    margin: 10px 0 0 60px;
     font-family: sans-serif;
   }
   
@@ -17,16 +17,35 @@
     gap: 2rem;
     margin-bottom: 2rem;
   }
+  .icons-container{
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    width:20%;
+    margin-bottom:20px;
+ 
+    
+  }
+  .bi-share-fill{
+    font-size:24px;
+    color: #4b2e2a;
+    cursor:pointer;
+  }
   
   .coffee-single-image-box {
     flex: 1;
-     min-width: 300px; 
-      max-width: 500px; 
+     min-width: 200px; 
+    max-width: 500px; 
   }  
+ 
+   .heart{
+    color: #4b2e2a;
+    margin-bottom: 10px,
+   }
   
   .coffee-single-image {
-    width: 100%;
-    height:70%;
+    width: 80%;
+    height:60%;
     border-radius: 10px;
     object-fit: cover;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -34,21 +53,21 @@
   }
   
   .coffee-single-info {
-    flex: 2;
+    flex: 1;
     min-width: 300px;
-    margin-left:30px;
     font-size:1rem;
   }
   
   .coffee-single-title {
     font-size: 2.2rem;
-    margin: 2rem 0;
+
+  
   }
   
   .coffee-single-description {
     font-size: 1rem;
     margin-bottom: 1rem;
-    color: #555;
+    color: #333;
   }
   
   .coffee-single-info p {
@@ -119,9 +138,9 @@
     margin:20px 0;
   }
   .bi-arrow-left{
-    font-size:30px;
+    font-size:26px;
     cursor: pointer;
-    color: #4b2e2a;
+  
     margin-bottom:20px;
      display:inline-block;
   }
